@@ -1,0 +1,27 @@
+version: "3"
+services:
+  backend:
+    container_name: ic_backend
+    image: ic_backend:1.0.0
+    build: 
+      context: server
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    networks:
+      - ic_app
+  frontend:
+    container_name: ic_frontend
+    image: ic_frontend:1.0.0
+    build: 
+      context: UI
+      dockerfile: Dockerfile
+    ports:
+      - 5173:5173
+    depends_on:
+      - backend
+    networks: 
+      - ic_app
+networks:
+  ic_app:
+    driver: bridge      
